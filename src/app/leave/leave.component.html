@@ -1,0 +1,66 @@
+<h2 class="page-title">Leave Management</h2>
+
+<!-- Leave Request Card -->
+<div class="card">
+  <h3 class="card-title">Request Leave</h3>
+
+  <div class="form-row">
+    <input
+      type="text"
+      placeholder="Select Nurse"
+      hidden
+    />
+
+    <select [(ngModel)]="nurseId" name="nurseId" required>
+      <option value="">Select Nurse</option>
+      <option *ngFor="let n of nurses" [value]="n.id">
+        {{ n.name }} ({{ n.department }})
+      </option>
+    </select>
+
+    <input
+      type="date"
+      [(ngModel)]="leaveDate"
+      name="leaveDate"
+      required
+    />
+
+    <input
+      type="text"
+      [(ngModel)]="reason"
+      name="reason"
+      placeholder="Reason"
+      required
+    />
+
+    <button (click)="submitLeave()">Request Leave</button>
+    <button (click)="loadLeaves()">Show Requests</button>
+  </div>
+
+  <p class="success" *ngIf="successMessage">{{ successMessage }}</p>
+  <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+</div>
+
+<!-- Leave List Card -->
+<div class="card" *ngIf="leaves.length > 0">
+  <h3 class="card-title">Leave Requests</h3>
+
+  <table class="data-table">
+    <thead>
+    <tr>
+      <th>Nurse</th>
+      <th>Date</th>
+      <th>Reason</th>
+      <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let l of leaves">
+      <td>{{ l.nurse?.name }}</td>
+      <td>{{ l.leaveDate }}</td>
+      <td>{{ l.reason }}</td>
+      <td>{{ l.status }}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

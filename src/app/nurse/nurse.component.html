@@ -1,0 +1,71 @@
+<div class="page-container">
+
+  <h2 class="page-title">Nurse Management System</h2>
+
+  <!-- Add / Edit Nurse Card -->
+  <div class="card">
+    <h3 class="card-title">
+      {{ isEditMode ? 'Edit Nurse' : 'Add Nurse' }}
+    </h3>
+
+    <div class="form-row">
+      <input
+        type="text"
+        placeholder="Name"
+        [(ngModel)]="newNurseName"
+      />
+
+      <input
+        type="text"
+        placeholder="Role"
+        [(ngModel)]="newNurseRole"
+      />
+
+      <input
+        type="text"
+        placeholder="Department"
+        [(ngModel)]="newNurseDepartment"
+      />
+
+      <button (click)="addNurse()">
+        {{ isEditMode ? 'Update' : 'Add' }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="loading" class="loading-text">
+    Loading nurses...
+  </div>
+
+  <!-- Nurse List Card -->
+  <div *ngIf="!loading" class="card">
+    <h3 class="card-title">Nurses</h3>
+
+    <table class="data-table">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Role</th>
+        <th>Department</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr *ngFor="let nurse of nurses">
+        <td>{{ nurse.id }}</td>
+        <td>{{ nurse.name }}</td>
+        <td>{{ nurse.role }}</td>
+        <td>{{ nurse.department }}</td>
+        <td class="actions">
+          <button (click)="editNurse(nurse)">Edit</button>
+          <button (click)="deleteNurse(nurse.id)">Delete</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

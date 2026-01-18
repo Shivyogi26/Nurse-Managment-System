@@ -1,0 +1,66 @@
+<h2 class="page-title">Shift Management</h2>
+
+<!-- Assign Shift Card -->
+<div class="card">
+  <h3 class="card-title">Assign Shift</h3>
+
+  <div class="form-row">
+    <select [(ngModel)]="nurseId" name="nurseId" required>
+      <option value="">Select Nurse</option>
+      <option *ngFor="let n of nurses" [value]="n.id">
+        {{ n.name }} ({{ n.department }})
+      </option>
+    </select>
+
+    <input
+      type="date"
+      [(ngModel)]="shiftDate"
+      name="shiftDate"
+      required
+    />
+
+    <select [(ngModel)]="timeSlot" name="timeSlot" required>
+      <option value="">Select Slot</option>
+      <option *ngFor="let slot of timeSlots" [value]="slot">
+        {{ slot }}
+      </option>
+    </select>
+
+    <!-- POST -->
+    <button type="button" (click)="assignShift()">
+      Assign Shift
+    </button>
+  </div>
+
+  <p class="success" *ngIf="successMessage">{{ successMessage }}</p>
+  <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+</div>
+
+<!-- Assigned Shifts Card -->
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">Assigned Shifts</h3>
+
+    <!-- GET -->
+    <button type="button" (click)="loadShifts()">
+      View Shifts
+    </button>
+  </div>
+
+  <table class="data-table" *ngIf="shifts.length > 0">
+    <thead>
+    <tr>
+      <th>Nurse</th>
+      <th>Date</th>
+      <th>Slot</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let s of shifts">
+      <td>{{ s.nurse?.name }}</td>
+      <td>{{ s.shiftDate }}</td>
+      <td>{{ s.timeSlot }}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
